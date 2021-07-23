@@ -1,0 +1,110 @@
+/*Databse is created (NOTE: we can always delete this database using the DROP command*/
+CREATE DATABASE MathLab;
+
+/*Command that we use to tell mySQL which databse we are going to be using*/
+USE MathLab;
+
+/*We use the select command to query our data*/
+SELECT * FROM Employees;
+Select * from Employees where emplid = '2';
+
+/*After creating a table, we tell our database what kind of data will go in here*/
+CREATE TABLE Employees(
+emplid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+F_name VARCHAR (20) NOT NULL, 
+L_name VARCHAR (20) NOT NULL, 
+email VARCHAR (50) NOT NULL, 
+phone_number VARCHAR (14) NOT NULL, 
+address VARCHAR (40)NOT NULL, 
+hourly_rate INT (5), 
+total_weekly_work_hours INT (5)NOT NULL, 
+title VARCHAR (15) NOT NULL
+);
+
+/*Now we supply our different columns*/
+INSERT INTO Employees (F_name, l_name, email, phone_number, address, hourly_rate, total_weekly_work_hours, title ) VALUES 
+('Juan', 'Sanchez', 'jalvarez@gmail.com', '(917) 373-2816', '444 Astoria Parks', 15, 20, 'Tutor'), 
+('Sally', 'Hardy','sallyzar56@gmail.com', '(646) 234-9876', '78 Gardens of Joy', 15, 22, 'Coordinator'), 
+('Lawrence', 'Fletcher', 'fletcher65@gmail.com', '(646) 456-0987', 'L15 Baritono', 15, 28, 'Tutor' ), 
+('Daniel', 'Sims', 'dannyrocks@gmail.com', '(787) 456-9087', 'Las Cascadas', 15, 40, 'Tutor'), 
+('Mary', 'Bello', 'mary.bello@yahoo.com', '(914) 453-7456', '679 Salvador Street', 15, 45,'Tutor');
+
+
+SELECT * FROM Coordinator;
+Select * from Coordinator where emplid = '3';
+CREATE TABLE Coordinator(
+emplid INT NOT NULL PRIMARY KEY,
+list_of_tutors VARCHAR (15),
+FOREIGN KEY (emplid) REFERENCES Employees(emplid)
+);
+INSERT INTO Coordinator(list_of_tutors) VALUES
+('Juan');
+INSERT INTO Coordinator(list_of_tutors) VALUES
+('Lawrence');
+INSERT INTO Coordinator(list_of_tutors) VALUES
+('Daniel');
+INSERT INTO Coordinator(list_of_tutors) VALUES
+('Mary');
+alter table coordinator add foreign key (emplid) references employees(emplid) on delete cascade on update cascade;
+
+SELECT * FROM Tutor;
+Select * from Tutor where emplid = '1';
+CREATE TABLE Tutor(
+emplid INT NOT NULL PRIMARY KEY,
+list_of_courses varchar (20)
+);
+INSERT INTO Tutor VALUES(
+'Calculus', 'Physics', 'Calculus II', 'Linear Algebra', 'Discrete Maths'
+);
+
+
+SELECT * FROM TUTEE;
+Select * from Tutee where emplid = '4';
+CREATE TABLE Tutee(
+emplid INT NOT NULL PRIMARY KEY, 
+F_name VARCHAR (20) NOT NULL, 
+L_name VARCHAR (20) NOT NULL, 
+phone VARCHAR (14) NOT NULL,
+email VARCHAR (40) NOT NULL,  
+address VARCHAR (40) NOT NULL, 
+out_time VARCHAR (5),
+in_time VARCHAR (5),
+visit_date DATE
+);
+INSERT INTO Tutee(F_name, l_name, phone, email, address, out_time, in_time, visit_date) VALUES
+('Jake', 'Forch', '(917) 450-6754', 'jakeyfox@gmail.com', '567 Uraya Parks', '05:56', '02:23', '2021-05-12'), 
+('Daniella', 'Gonzalez','(917) 567-0932', 'daniellx98@gmail.com', 'City of Tears', '07:02', '04:00', '2021-05-12'), 
+('Alondra', 'Nunez', '(646) 510-0084', 'alulu5436@gmail.com', '500 Columbus Pl', '05:56', '02:24', '2021-05-12'), 
+('Rafa', 'Mendler', '(646) 512-4382', 'taffygenerations@yahoo.com', 'Goromott Ave', '06:00', '01:20', '2021-05-12'), 
+('Mathew', 'Robertson', '(917) 643-2983', 'mattkills@gmail.com', 'El Pescado St', '06:12', '03:00', '2021-05-12');
+
+
+SELECT * FROM Book;
+Select * from Book where book_id = '076453241';
+CREATE TABLE Book(
+book_id INT (10) NOT NULL PRIMARY KEY,
+title VARCHAR (40) NOT NULL,
+authors VARCHAR (30)
+);
+INSERT INTO Book(book_id, title, authors) VALUES
+(076453241, 'Tears of the Anaren', 'C.W. Longbottom'),
+(657483932, 'The Staff of Serapis', 'Rick Riordian'),
+(095437819, 'Calculus, Early Fundamentals', 'Laurson Edwards'),
+(888845362, 'Linear Algebra', 'Jim Hefferson'),
+(453417363, 'Discrete Maths and its Applications', 'Kenneth Rosen');
+
+
+SELECT * FROM Study_Tools;
+Select * from Study_Tools where serial_no = '435261732';
+CREATE TABLE Study_Tools(
+serial_no INT (10) NOT NULL PRIMARY KEY,
+Full_name VARCHAR (30) NOT NULL,
+manufacturer VARCHAR (20),
+tool VARCHAR (15) NOT NULL
+);
+INSERT INTO Study_Tools(serial_no, Full_name, manufacturer, tool) Values
+(456373892, 'Rafa Mendler', 'Apple', 'MacBook'),
+(654637285, 'Rafa Mendler', 'Cassio', 'Calculator'),
+(435261732, 'Jake Forch', 'Cassio', 'Calculator'),
+(123456783, 'Daniella Gonzalez', 'Apple', 'MacBook' ),
+(245367891, 'Alondra Nunez', 'Apple', 'MacBook');
